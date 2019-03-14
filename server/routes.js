@@ -1,10 +1,10 @@
-const logic = require('./controllers.js')
+const controllers = require('./controllers.js');
 
-module.exports = function (app) {
-
-    app.get('/', logic.root)
-    app.post('/new', logic.add)
-    app.delete('/:name', logic.remove)
-    app.get('/:name', logic.find)
-    app.put('/:name', logic.update)
+module.exports = app => {
+  app
+    .get('/api/persons', controllers.getAllPersons)
+    .get('/api/persons/:id', controllers.getOnePerson)
+    .post('api/persons/', controllers.createPerson)
+    .put('/api/persons/:id', controllers.updatePerson)
+    .delete('/api/persons/:id', controllers.deletePerson)
 }
