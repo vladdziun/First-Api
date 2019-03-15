@@ -14,7 +14,7 @@ module.exports = {
       .then(data => res.json(data))
       .catch(err => res.json(err));
   },
-  
+
   deletePerson: (req, res) => {
     const ID = req.params.id;
     Person.findOneAndRemove({_id: ID})
