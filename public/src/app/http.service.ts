@@ -25,4 +25,16 @@ export class HttpService {
   {
     return this._http.post('/api/persons', name);
   }
+  addPerson(newPerson){
+    return this._http.post(`/api/persons`, newPerson);
+  }
+  deletePerson(id)
+  {
+    return this._http.delete(`/api/persons/${id}`);
+
+  }
+  updatePerson(id, updatedPerson)
+  {
+    return this._http.put(`/api/persons/${id}`, updatedPerson);
+  }
 }

@@ -10,11 +10,14 @@ export class AppComponent implements OnInit {
   title = 'app';
   persons = [];
   id = "";
+  newPerson: any;
+  updatedPerson: any;
 
   constructor(private _httpService: HttpService) {
   }
   ngOnInit() {
-    // this.getPersonsFromService()
+    this.newPerson = {name: ""}
+    this.updatedPerson = {name: ""}
   }
   getPersonsFromService() {
     console.log("Here!")
@@ -22,6 +25,7 @@ export class AppComponent implements OnInit {
     observable.subscribe(data => {
       console.log("got our data", data);
       this.persons.push(data);
+      this.persons = this.persons;
       console.log(this.persons);
     })
   }
@@ -37,4 +41,25 @@ export class AppComponent implements OnInit {
     observable.subscribe(data => console.log(data));
     this.id = id;
   }
+  onSubmit(){
+    let observable = this._httpService.addPerson(this.newPerson);
+    observable.subscribe(() => console.log("Adding person"));
+    this.newPerson = {name: ""} 
+  }
+  onSubmitUpdate(): void{
+    let observable = this._httpService.updatePerson(this.id,this.updatedPerson);
+    observable.subscribe(() => console.log("Updating person"));
+    this.updatedPerson = {name: ""} 
+  }
+  deletePerson(id: string): void {
+    let observable = this._httpService.deletePerson(id);
+    observable.subscribe(data => console.log(data));
+    this.getPersonsFromService();
+    this.id = id;
+  }
+  editPerson(id: string, name: string): void {
+    this.id = id;
+    this.updatedPerson = {name: name}
+  }
+  
 }
